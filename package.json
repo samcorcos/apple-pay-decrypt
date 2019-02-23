@@ -1,10 +1,11 @@
 {
   "name": "apple-pay-decrypt",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Enables decryption of Apple Pay tokens.",
   "main": "index.js",
   "scripts": {
-    "test": "test"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "prepublishOnly": "node scripts/bump"
   },
   "repository": {
     "type": "git",
@@ -20,5 +21,17 @@
   "bugs": {
     "url": "https://github.com/samcorcos/apple-pay-decrypt/issues"
   },
-  "homepage": "https://github.com/samcorcos/apple-pay-decrypt#readme"
+  "homepage": "https://github.com/samcorcos/apple-pay-decrypt#readme",
+  "devDependencies": {
+    "babel-eslint": "^10.0.1",
+    "standard": "^12.0.1"
+  },
+  "standard": {
+    "parser": "babel-eslint"
+  },
+  "dependencies": {
+    "ec-key": "0.0.2",
+    "node-forge": "^0.8.0",
+    "x509": "^0.3.4"
+  }
 }
