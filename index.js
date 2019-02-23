@@ -22,7 +22,7 @@ class PaymentToken {
     const sharedSecret = this.sharedSecret(privatePem)
     const merchantId = this.merchantId(certPem)
     const symmetricKey = this.symmetricKey(merchantId, sharedSecret)
-    const decrypted = this.decryptCiphertext(symmetricKey, this.ciphertext)
+    const decrypted = this.decryptCiphertext(symmetricKey, this.cipherText)
     return JSON.parse(decrypted)
 
     // matches the second close brace and returns everything before and including
@@ -83,9 +83,9 @@ class PaymentToken {
    * Decrypting the cipher text from the token (data in the original payment token) key using AES–256 (id-aes256-GCM 2.16.840.1.101.3.4.1.46), with an initialization vector of 16 null bytes and no associated authentication data.
    * 
    */
-  decryptCiphertext(symmetricKey, ciphertext) {
+  decryptCiphertext(symmetricKey, cipherText) {
 
-    const data = forge.util.decode64(ciphertext)
+    const data = forge.util.decode64(cipherText)
     const SYMMETRIC_KEY = forge.util.createBuffer((Buffer.from(symmetricKey, 'hex')).toString('binary'))
     const IV = forge.util.createBuffer((Buffer.from([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0])).toString('binary')) // Initialization vector of 16 null bytes
     const CIPHERTEXT = forge.util.createBuffer(data.slice(0, -16))
