@@ -95,7 +95,7 @@ qDRXQRMETBev1j7Y1w/v2K0CIAlnnXPVX52g5FTadoFyVq2a91sA4ao4
 
 (And no, those are not my real keys)
 
-## Example
+## Usage
 
 The `tokenFromApplePay` you get from Apple Pay will look something like this:
 
@@ -127,7 +127,7 @@ const token = new PaymentToken(tokenFromApplePay)
 const decrypted = token.decrypt(certPem, privatePem)
 ```
 
-The `decrypted` value at this point should look something like this, which contains the decrypted card information that you can then use to process your payment with something like Stripe or Braintree:
+The `decrypted` value at this point should look something like this:
 
 ```js
 {
@@ -142,3 +142,5 @@ The `decrypted` value at this point should look something like this, which conta
   } 
 }
 ```
+
+You can then use those decrypted values with your payment processor of choice (Stripe, Braintree, et al) to process payments from Apple Pay. 
