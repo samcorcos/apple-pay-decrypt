@@ -16,7 +16,13 @@ class PaymentToken {
     const merchantId = this.merchantId(certPem)
     const symmetricKey = this.symmetricKey(merchantId, sharedSecret)
     const decrypted = this.decryptCiphertext(symmetricKey, this.ciphertext)
-    return JSON.parse(decrypted.slice(0, -15))
+
+    // matches the second close brace and returns everything before and including
+    // the second close brace. we need this because the result often returns with
+    // some random cruft at the end, such as `�d*�<?}ތ0j{��[`
+    const regex = /^.+}.*?(})/g
+
+    return JSON.parse(decrypted.match(regex)[0])
   }
 
   sharedSecret (privatePem) {
@@ -36,20 +42,20 @@ class PaymentToken {
 
   symmetricKey (merchantId, sharedSecret) {
     const KDF_ALGORITHM = '\x0did-aes256-GCM'
-    const KDF_PARTY_V = (Buffer.from(merchantId).toString('hex')).toString('binary')
+    const KDF_PARTY_V = (Buffer.from(merchantId, 'hex')).toString('binary')
     const KDF_INFO = KDF_ALGORITHM + 'Apple' + KDF_PARTY_V
 
     let hash = crypto.createHash('sha256')
-    hash.update(Buffer.from('000000').toString('hex'))
-    hash.update(Buffer.from('01').toString('hex'))
-    hash.update(Buffer.from(sharedSecret).toString('hex'))
+    hash.update(Buffer.from('000000', 'hex'))
+    hash.update(Buffer.from('01', 'hex'))
+    hash.update(Buffer.from(sharedSecret, 'hex'))
     hash.update(KDF_INFO, 'binary')
 
     return hash.digest('hex')
   }
 
   decryptCiphertext (symmetricKey, ciphertext) {
-    const SYMMETRIC_KEY = forge.util.createBuffer((Buffer.from(symmetricKey).toString('hex')).toString('binary'))
+    const SYMMETRIC_KEY = forge.util.createBuffer((Buffer.from(symmetricKey, 'hex').toString('binary')))
     const IV = forge.util.createBuffer((Buffer.from([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0])).toString('binary'))
     const CIPHERTEXT = forge.util.createBuffer(forge.util.decode64(ciphertext))
 
@@ -64,7 +70,7 @@ class PaymentToken {
 
     decipher.update(CIPHERTEXT)
     decipher.finish()
-    return Buffer.from(decipher.output.toHex()).toString('hex').toString('utf-8')
+    return Buffer.from(decipher.output.toHex(), 'hex').toString('utf-8')
   }
 }
 
