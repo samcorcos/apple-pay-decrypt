@@ -1,5 +1,8 @@
 # Apple Pay Decrypt
 
+[![npm version](https://img.shields.io/npm/dt/apple-pay-decrypt.svg?style=flat-square)](https://img.shields.io/npm/dt/apple-pay-decrypt.svg)
+[![npm version](https://img.shields.io/npm/v/apple-pay-decrypt.svg?style=flat-square)](https://www.npmjs.com/package/apple-pay-decrypt)
+
 This package allows you to decrypt a token received from Apple Pay.
 
 This works in `node` and not on a browser, as it requires the built-in `crypto` package and secret keys (`.pem` files), which should never exist on the client anyway.
