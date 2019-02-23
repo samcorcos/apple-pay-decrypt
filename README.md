@@ -4,6 +4,8 @@ This package allows you to decrypt a token received from Apple Pay.
 
 This works in `node` and not on a browser, as it requires the built-in `crypto` package and secret keys (`.pem` files), which should never exist on the client anyway.
 
+The decryption methodology of this package is largely taken from the [Gala Ruby Gem](https://github.com/spreedly/gala).
+
 ## Getting Started
 
 `npm i --save apple-pay-decrypt`
@@ -19,7 +21,7 @@ openssl ecparam -out private.key -name prime256v1 -genkey
 openssl req -new -sha256 -key private.key -nodes -out request.csr
 ```
 
-Then go to the [Apple Developer Certificate Manager](https://developer.apple.com/account/ios/certificate/)
+Then go to the [Apple Developer Certificate Manager](https://developer.apple.com/account/ios/certificate/).
 
 Make sure you have a Merchant Id. Navigate to `Identifiers` => `Merchant IDs` to make sure you have one, if not, create one.
 
@@ -106,6 +108,8 @@ The `tokenFromApplePay` you get from Apple Pay will look something like this:
     }
 }
 ```
+
+To decrypt the token, import the `.pem` files and create a new `PaymentToken` with the token from Apple Pay. Then decrypt using the keys.
 
 ```js
 const certPem = fs.readFileSync(path.join(__dirname, '../path/to/certPem.pem'), 'utf8')
