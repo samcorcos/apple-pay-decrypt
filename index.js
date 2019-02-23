@@ -22,8 +22,15 @@ class PaymentToken {
     const sharedSecret = this.sharedSecret(privatePem)
     const merchantId = this.merchantId(certPem)
     const symmetricKey = this.symmetricKey(merchantId, sharedSecret)
-    const decrypted = this.decryptCiphertext(symmetricKey, this.cipherText)
+    const decrypted = this.decryptCiphertext(symmetricKey, this.ciphertext)
     return JSON.parse(decrypted)
+
+    // matches the second close brace and returns everything before and including
+    // the second close brace. we need this because the result often returns with
+    // some random cruft at the end, such as `�d*�<?}ތ0j{��[`
+    // const regex = /^.+}.*?(})/g
+
+    // return JSON.parse(decrypted.match(regex)[0])
   }
 
   /**

@@ -1,11 +1,10 @@
 {
   "name": "apple-pay-decrypt",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "description": "Enables decryption of Apple Pay tokens.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "prepublishOnly": "node scripts/bump"
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
