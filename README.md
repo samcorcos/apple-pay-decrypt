@@ -11,7 +11,9 @@ The decryption methodology of this package is largely taken from the [Gala Ruby 
 
 ## Getting Started
 
-`npm i --save apple-pay-decrypt`
+```sh
+npm i --save apple-pay-decrypt
+```
 
 In order to decrypt the token, you will need two `.pem` files. One is a certificate and one is a key. The process for generating these is complicated.
 
