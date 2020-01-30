@@ -117,6 +117,8 @@ The `tokenFromApplePay` you get from Apple Pay will look something like this:
 To decrypt the token, import the `.pem` files and create a new `PaymentToken` with the token from Apple Pay. Then decrypt using the keys.
 
 ```js
+const fs = require('fs')
+const path = require('path')
 const PaymentToken = require('apple-pay-decrypt')
 
 const certPem = fs.readFileSync(path.join(__dirname, '../path/to/certPem.pem'), 'utf8')
