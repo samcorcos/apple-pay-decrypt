@@ -30,7 +30,7 @@
   },
   "dependencies": {
     "ec-key": "0.0.2",
-    "node-forge": "^0.8.0",
+    "node-forge": "^0.10.0",
     "x509": "^0.3.4"
   }
 }
