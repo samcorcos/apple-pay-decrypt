@@ -16,7 +16,7 @@ on:
 
 jobs:
   check-packages-github:
-    runs-on: ubuntu-latest
+    runs-on: self-hosted-small-spot
     defaults:
       run:
         shell: bash
@@ -38,7 +38,7 @@ jobs:
   publish-github:
     needs: check-packages-github
     if: ${{ needs.check-packages-github.outputs.continue == 'true' }}
-    runs-on: ubuntu-latest
+    runs-on: self-hosted-small-spot
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v2
